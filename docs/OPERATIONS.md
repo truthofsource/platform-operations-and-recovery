@@ -1,8 +1,10 @@
 # Operations and troubleshooting
 
+**Terms used here:** A digest is a file or container fingerprint used to confirm the exact version. An artifact is a file produced for a release, such as an application ZIP or container image.
+
 ## Start and stop
 
-Run unit tests, then start the loopback dashboard with `python -B -m lab serve`. Stop with Ctrl+C. Each demonstration uses disposable synthetic state; running it twice does not send messages or change a cloud resource.
+Run unit tests, then start the loopback dashboard with `python -B -m lab serve`. Stop with Ctrl+C. Each demonstration uses disposable test-only state; running it twice does not send messages or change a cloud resource.
 
 ## Diagnose by failure stage
 

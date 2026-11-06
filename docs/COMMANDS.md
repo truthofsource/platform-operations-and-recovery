@@ -1,5 +1,7 @@
 # Commands and expected results
 
+**Terms used here:** A digest is a file or container fingerprint used to confirm the exact version. A managed identity lets an Azure service request access without storing a password in the application.
+
 Run these commands **from this repository's root**, unless a step explicitly says otherwise. Commands in the proof sections are local reproductions of the included behavior, not live cloud operations.
 
 ## What was actually exercised

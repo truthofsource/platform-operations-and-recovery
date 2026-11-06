@@ -1,6 +1,6 @@
 # Platform Operations & Recovery Engineering
 
-**A saved backup becomes recovery evidence only after a restore test.**
+**Test recovery, make logs useful and keep temporary cloud resources under control.**
 
 [The problem](#the-business-problem) · [The solution](#the-solution) · [What was built](#what-was-built) · [Proof it works](#proof-it-works) · [Run it](#run-it-locally)
 
@@ -8,26 +8,22 @@
 
 ## The Business Problem
 
-A small cloud platform needed reliable operational records, controlled running costs and a recovery path that did not depend on experimenting with its live database or exposing secret material.
-
-1. **A backup that has never been restored.** A successful upload does not prove that the application can recover.
-2. **A rehearsal that affects the live database.** Recovery testing must not overwrite or expose the system it is meant to protect.
-3. **Logs without a clear meaning.** A configured destination does not prove log arrival, and provider acceptance does not prove user receipt.
+The platform needed reliable operating records and a way to recover without experimenting on the live database. It also needed to control running costs and protect private configuration and credentials. A saved backup or a configured log destination was not enough on its own.
 
 ## The Solution
 
-Capture backups and application inventory, verify the archive, restore into an isolated target, and compare the recovered state. Pair that recovery process with explicit operational log routing, useful queries and controlled temporary compute.
+Save backups and a record of what they contain, restore them into a separate test environment, and compare the results. Define where logs go and how staff use them to investigate failures. Stop temporary services and confirm their final state after testing.
 
-**Business goal:** Make recovery repeatable, keep operational evidence useful and stop temporary resources without confusing a paused service with an uninstalled component.
+**Business outcome:** Make recovery repeatable, operating information clearer and temporary-resource cleanup easier to verify.
 
 ### Platform implementation
 
-- Operated a Linux-hosted engineering portal with identity-aware access, private runtime material, backups and a tested temporary recovery-host procedure.
-- Implemented checksum-verified PostgreSQL backups and disposable network-isolated restore checks, with database/table/row-count inventory comparison.
+- Operated a Linux-hosted engineering portal with access based on verified sign-in, private runtime material, backups and a tested temporary recovery-host procedure.
+- Implemented checksum-verified PostgreSQL backups and disposable network-restore into a separate test environment checks, with database/table/row-count inventory comparison.
 - Documented application and infrastructure logs, service diagnostics, Log Analytics queries and the difference between provider acceptance and actual delivery.
 - Preserved paused nonproduction states after bounded tests and tracked residual costs, resource ownership and backup/retention requirements.
 
-This case study draws on a workforce/operations platform I designed and implemented. Organization details and records are excluded. The public code makes selected patterns reproducible; the screenshots show a working local demonstration with fictional data. [Validation scope](docs/VALIDATION.md) separates that evidence from provider-side acceptance.
+This case study draws on a workforce/operations platform I designed and implemented. Organization details and records are excluded. The public code makes selected patterns reproducible; the screenshots show a working local demonstration with fictional data. [Validation scope](docs/VALIDATION.md) separates that evidence from testing against the actual cloud service.
 
 ### Actual implementation code
 
@@ -57,7 +53,7 @@ flowchart LR
 | PostgreSQL backup/restore scripts | Preserve the operational checksum, inventory and network-isolated rehearsal pattern. | [View code](scripts) |
 | Private backup storage | Use keyless access, versioning and deletion protection. | [View code](infra/storage.tf) |
 | Log Analytics and Blob diagnostics | Route audit categories into dedicated storage tables with 30-day operational retention. | [View code](infra/monitoring.tf) |
-| Backup lifecycle and optional writer role | Make retention and container-scoped access reviewable in code. | [View code](infra/monitoring.tf) |
+| Backup lifecycle and optional writer role | Make retention and container-specific access reviewable in code. | [View code](infra/monitoring.tf) |
 | Optional recovery-host shell | Define a private-NIC Linux VM with SSH keys; it remains unprovisioned by default. | [View code](infra/recovery-vm.tf) |
 | Operational queries | Provide KQL starting points for backup traces and storage authentication. | [View code](queries/operations.kql) |
 
@@ -72,7 +68,7 @@ npm run test:source
 The selected original tests run offline. [Validation](docs/VALIDATION.md) records current counts and distinguishes them from historical hosted evidence.
 
 
-**Current local checks:** 12 extracted-source tests + 10 portable tests passed · 5 demonstration checks · 1 Terraform mock tests.
+**Current local checks:** 12 extracted-source tests + 10 portable tests passed · 5 demonstration checks · 1 Terraform tests using simulated cloud responses.
 
 These are dated results for this reference implementation, not live Azure/AWS deployment claims. [Test record](docs/validation-results.json) · [Evidence and limitations](docs/VALIDATION.md)
 

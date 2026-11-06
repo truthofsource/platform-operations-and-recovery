@@ -1,5 +1,7 @@
 # Implementation walkthrough
 
+**Terms used here:** A digest is a file or container fingerprint used to confirm the exact version.
+
 A small cloud platform needed reliable operational records, controlled running costs and a recovery path that did not depend on experimenting with its live database or exposing secret material.
 
 ## 1. Run the fast recovery demo

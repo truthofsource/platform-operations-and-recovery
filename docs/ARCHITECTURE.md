@@ -1,11 +1,13 @@
 # Architecture and implementation boundaries
 
+**Terms used here:** DNS turns a service name into the network address used to reach it.
+
 ## Source-platform context
 
 A small cloud platform needed reliable operational records, controlled running costs and a recovery path that did not depend on experimenting with its live database or exposing secret material.
 
-- Operated a Linux-hosted engineering portal with identity-aware access, private runtime material, backups and a tested temporary recovery-host procedure.
-- Implemented checksum-verified PostgreSQL backups and disposable network-isolated restore checks, with database/table/row-count inventory comparison.
+- Operated a Linux-hosted engineering portal with access based on verified sign-in, private runtime material, backups and a tested temporary recovery-host procedure.
+- Implemented checksum-verified PostgreSQL backups and disposable network-restore into a separate test environment checks, with database/table/row-count inventory comparison.
 - Documented application and infrastructure logs, service diagnostics, Log Analytics queries and the difference between provider acceptance and actual delivery.
 - Preserved paused nonproduction states after bounded tests and tracked residual costs, resource ownership and backup/retention requirements.
 
