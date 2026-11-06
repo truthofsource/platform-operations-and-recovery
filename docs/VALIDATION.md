@@ -35,3 +35,7 @@ The successful screenshots were generated from these local demonstrations; they 
 ## Deliberate limits
 
 The public reference does not use real employee records, make paid AI calls, send email/SMS, mutate Microsoft Graph or apply cloud infrastructure. Local filesystem and SQLite tests do not replace provider-specific failure/recovery tests. Real implementation history is described as context and kept separate from reproducible evidence in this repository.
+
+## Terraform addition
+
+Provider initialization, formatting and schema validation passed; **1 mock plan tests passed**. No real plan/apply or cloud change occurred. [Machine record](terraform-validation.json). Application unit/browser results above remain the earlier separate acceptance.

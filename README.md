@@ -36,6 +36,12 @@ flowchart LR
   LAW -. selected approved tables .-> SIEM[Optional SIEM ingestion]
 ```
 
+## Terraform infrastructure
+
+An operational Log Analytics workspace, private backup storage, scoped optional backup-writer access, Blob audit routing/retention and an optional private Linux recovery-host shell.
+
+See the [Terraform code and validation steps](infra/README.md), [input example](infra/example.tfvars.example) and [mock plan tests](infra/tests). Cloud commissioning and any paid resources remain separate from the local demonstration.
+
 ## Run it
 
 Requires Python 3.12 or newer. The identity example also installs its pinned cryptography dependency. Run inside a virtual environment:
@@ -70,6 +76,7 @@ Expected security denials count as successful negative tests. The implementation
 ## Repository map
 
 ```text
+infra/               Terraform source, example inputs and mock plan tests
 lab/                 Working reference implementation and loopback dashboard
 tests/               Positive, negative and recovery cases
 docs/                Architecture, walkthrough, evidence and operating guide

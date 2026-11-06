@@ -14,3 +14,11 @@ __pycache__/
 *.db
 *.sql.gz
 *.zip
+
+# Terraform plans and local crash/runtime material can contain sensitive values.
+*.tfplan
+*.tfplan.*
+*.tfvars.json
+crash.log
+crash.*.log
+.terraform.tfstate.lock.info

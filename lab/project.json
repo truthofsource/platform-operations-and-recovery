@@ -13,8 +13,8 @@
   ],
   "notes": [
     "The default demo uses a synthetic SQLite database for a fast portable rehearsal.",
-    "Sanitized PostgreSQL scripts preserve the actual network-isolated restore pattern; they require a reviewed image and separate execution.",
+    "PostgreSQL scripts preserve the actual network-isolated restore pattern; they require a reviewed image and separate execution.",
     "Measured local milliseconds are not a production RTO or an application-consistent cloud recovery guarantee."
   ],
-  "boundary": "Sanitized patterns from an operational platform; this screen shows local code with fictional records."
+  "boundary": "Engineering patterns from an operational platform; this screen shows local code with fictional records."
 }
