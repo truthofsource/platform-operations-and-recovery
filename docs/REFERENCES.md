@@ -19,3 +19,5 @@ The demonstration and tests are standalone reference implementations. Screenshot
 - [Multi-cloud IAM and NHI governance](https://github.com/JustinGallimore/multi-cloud-iam-nhi-governance)
 
 These repositories informed the business-scenario, architecture, walkthrough and screenshot presentation. Their source code and screenshots were not copied. This project's code and assets are separately authored or adapted from my own platform material.
+
+- [Network Security and Traffic Analysis](https://github.com/fabrizio-mastrogiovanni/Network-Security---Traffic-Analysis) — inspiration for the business-problem, solution, component-table and numbered-evidence presentation. Wording, implementation and screenshots in this project are its own.
