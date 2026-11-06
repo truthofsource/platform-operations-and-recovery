@@ -50,7 +50,7 @@ flowchart LR
 | --- | --- | --- |
 | Actual delivery-status correlation | Match provider, recipient and time without confusing acceptance with delivery | [Reader](reference/deliveryReports.ts) · [original tests](reference/deliveryReports.test.ts) |
 | Local recovery reference | Back up a fictional database and restore it into a different exclusive target. | [View code](lab/domain.py) |
-| PostgreSQL backup/restore scripts | Preserve the operational checksum, inventory and network-isolated rehearsal pattern. | [View code](scripts) |
+| PostgreSQL backup/restore scripts | Save a file fingerprint and contents list, then practise recovery with the test network disconnected. | [View code](scripts) |
 | Private backup storage | Use keyless access, versioning and deletion protection. | [View code](infra/storage.tf) |
 | Log Analytics and Blob diagnostics | Route audit categories into dedicated storage tables with 30-day operational retention. | [View code](infra/monitoring.tf) |
 | Backup lifecycle and optional writer role | Make retention and container-specific access reviewable in code. | [View code](infra/monitoring.tf) |
@@ -181,7 +181,7 @@ See [strengths, weaknesses and tradeoffs](docs/SCALING.md) for the detailed deci
 | [Implementation walkthrough](docs/WALKTHROUGH.md) | Follow the processing path and code |
 | [Architecture](docs/ARCHITECTURE.md) | Understand service and identity boundaries |
 | [Terraform](infra/README.md) | Read the resource map, input examples and integration steps |
-| [Validation evidence](docs/VALIDATION.md) | Inspect dated checks and their limits |
+| [Validation evidence](docs/VALIDATION.md) | See the test dates, results and limits |
 | [Operations and troubleshooting](docs/OPERATIONS.md) | Diagnose failures and recover safely |
 | [Security and privacy](SECURITY.md) | Review access, secrets and publication controls |
 | [Scaling and tradeoffs](docs/SCALING.md) | Understand the costs of each design choice |

@@ -6,7 +6,7 @@ The platform separates application outcomes from transport outcomes. An accepted
 
 Its bounded read rejects arbitrary resources/IDs, caps row counts and response size, caches the query for sixty seconds, masks recipients for restricted viewers and refuses to call missing/incomplete telemetry delivered. It overlays a transport report without rewriting the send ledger or sending a retry. The source route's authentication/authorization remains a separate layer.
 
-Linux engineering-portal operations include actual PostgreSQL dump/checksum/inventory helpers and a separate restore into a separate test environment container. The dump includes plugin databases and global roles but omits role password hashes; private runtime secrets, engineer roster, environment and TLS state need their own protected recovery handling. The completed recovery-host and sign-in/reboot evidence does not establish every future SQL, document or Terraform-state rehearsal.
+The engineering portal includes tools to save a PostgreSQL backup, record its contents and practise restoring it in a separate container. The backup contains plugin databases and shared database roles, but leaves out role password hashes. Credentials, the engineer list, settings and HTTPS certificate data need their own protected recovery process. Earlier server-recovery and sign-in tests do not prove that every future database, document or Terraform-state restore will work.
 
 The portfolio keeps the local SQLite rehearsal as a small demonstrator and includes the real operational helper code separately. Running and paused states, installed Docker CLI and reachable Linux engine, backup acceptance and inbox receipt are distinct observations. No additional SIEM routing or message is activated by these examples.
 
