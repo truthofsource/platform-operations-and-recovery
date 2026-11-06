@@ -10,3 +10,7 @@ This is an educational reference derived from operational engineering patterns. 
 - Local modeled policies and synthetic scan receipts are not security attestations. Hosted adapters need provider-side authentication, least privilege and operational tests.
 
 Report a defect through a GitHub issue using fictional reproduction data. Never attach credentials, private employee documents or real authentication traces.
+
+## Extracted source boundary
+
+Public example labels/identities are not valid production configuration. Selected original tests use fictional providers and cannot authorize a cloud operation. Read the source map before treating a helper as a complete deployable service. No state, keys, real backup payloads or employee records belong in this repository.

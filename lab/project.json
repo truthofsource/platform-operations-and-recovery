@@ -12,9 +12,10 @@
     "Remove rehearsal resources and record evidence"
   ],
   "notes": [
+    "Actual platform source and original offline tests are included under reference/; see implementation and source-map guides.",
     "The default demo uses a synthetic SQLite database for a fast portable rehearsal.",
     "PostgreSQL scripts preserve the actual network-isolated restore pattern; they require a reviewed image and separate execution.",
     "Measured local milliseconds are not a production RTO or an application-consistent cloud recovery guarantee."
   ],
-  "boundary": "Engineering patterns from an operational platform; this screen shows local code with fictional records."
+  "boundary": "Platform-derived local demonstration with fictional data; extracted source/tests are separately reproducible. No fresh cloud acceptance."
 }

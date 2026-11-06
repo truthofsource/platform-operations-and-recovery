@@ -1,15 +1,16 @@
-# PostgreSQL backup and restore patterns
+# Actual PostgreSQL operational helpers
 
-These three scripts adapt the author's operational PostgreSQL backup/rehearsal implementation, with neutral naming and no environment identifiers. Unlike the SQLite dashboard, they operate on real local Docker containers and can upload through AzCopy when explicitly enabled.
+These helpers are extracted from the engineering portal's VM backup/recovery implementation. Public resource/container prefixes use portal; the explicit ALLOW_CLOUD_BACKUP guard is added for this standalone publication. The original dump, checksum, inventory and isolated-restore logic is retained.
 
-- `snapshot_cluster.py`: capture database/table row counts without printing row values. Application database names must start with `platform`.
-- `backup-postgres.sh`: requires `ALLOW_CLOUD_BACKUP=true` and `PLATFORM_BACKUP_CONTAINER_URL`; uses managed-identity AzCopy, omits role passwords, uploads dump/checksum/inventory without overwrite. Run only on an approved host.
-- `check-restore.sh`: requires `PLATFORM_RESTORE_POSTGRES_IMAGE=postgres@sha256:<reviewed digest>`. Validates gzip and checksum, restores in a unique disposable `--network none` container and optionally compares inventory. No host port is exposed. Trust auth is confined to that isolated disposable container.
+- snapshot_cluster.py reads technical database/table counts, not row values. Expected application database names start with portal.
+- backup-postgres.sh requires ALLOW_CLOUD_BACKUP=true and PORTAL_BACKUP_CONTAINER_URL; uses managed-identity AzCopy, omits role passwords and refuses overwrite. It can upload real data if run on an authorized live host, so do not run it merely for a local portfolio check.
+- check-restore.sh requires PORTAL_RESTORE_POSTGRES_IMAGE=postgres@sha256:<reviewed digest>, an existing dump and its matching checksum. It restores into a disposable --network none container, exposes no host port and optionally compares saved inventory.
 
 ```bash
-# An existing approved dump is required; this does not create a cloud backup.
-export PLATFORM_RESTORE_POSTGRES_IMAGE='postgres@sha256:<reviewed-digest>'
+bash -n scripts/backup-postgres.sh scripts/check-restore.sh
+# Separate authorized local restore, after obtaining a reviewed image and fixture:
+export PORTAL_RESTORE_POSTGRES_IMAGE='postgres@sha256:<reviewed-digest>'
 bash scripts/check-restore.sh dump.sql.gz dump.sql.gz.sha256 expected.inventory.json
 ```
 
-The checksum sidecar and inventory must come from a trusted protected archive. A checksum stored beside an attacker-modified backup is not an authenticity signature. Take inventory and dump during a consistent snapshot or quiesced application window; separate queries while writers run can disagree. Validate database compatibility and role recreation separately. No real cloud upload or PostgreSQL recovery is claimed by the default local-demo screenshot.
+Syntax inspection and mocked inventory tests do not claim a current PostgreSQL restore. Trust auth belongs only to the isolated disposable container. Capture inventory/dump while writes are controlled; separate reads can otherwise disagree. Row counts are not row-by-row integrity proofs. Runtime credentials, TLS state and private configuration are restored separately.

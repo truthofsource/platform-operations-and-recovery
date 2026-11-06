@@ -45,3 +45,7 @@ Review the caller matrix, identity permissions, durable state, concurrency, log 
 ## Included Terraform
 
 An operational Log Analytics workspace, private backup storage, scoped optional backup-writer access, Blob audit routing/retention and an optional private Linux recovery-host shell. See [the code map, resource inventory and integration boundaries](../infra/README.md). This public root does not provision every box in the application diagram.
+
+## Implementation evidence
+
+[The platform-specific implementation](IMPLEMENTATION.md) records the real service boundaries and historical acceptance. Public adapters omit credentials and use fictional dependencies; a passing local test is not a live permission or network acceptance receipt.

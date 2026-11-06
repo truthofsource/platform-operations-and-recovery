@@ -36,3 +36,7 @@ python -B -m lab demo
 ```
 
 Then follow the commands beside each [proof section](../README.md#proof-it-works). The [full command reference](COMMANDS.md) explains prerequisites, expected outcomes and which additional procedures have not been run.
+
+## Follow the actual implementation
+
+Read [the implemented path](IMPLEMENTATION.md), then [the selected source](../reference/) and original tests. The loopback workbench remains a portable local reference. It does not replay provider operations or prove a fresh hosted deployment.

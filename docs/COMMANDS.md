@@ -123,3 +123,13 @@ git diff --check
 ```
 
 Inspect owned local files before cleanup. `.venv`, `.local`, provider caches, state and saved plans are excluded from commits. Do not remove another checkout's files, paste credentials into a command block or run a real cloud apply just to reproduce a screenshot.
+
+## Extracted implementation checks
+
+Use Node 22.18+; no npm install is required for the default selected tests.
+
+```bash
+npm run test:source
+```
+
+These run original selected implementation tests with the adaptations listed in [SOURCE-MAP](SOURCE-MAP.md). No cloud operations are performed.

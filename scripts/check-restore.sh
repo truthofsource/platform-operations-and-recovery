@@ -24,18 +24,18 @@ fi
 (cd "$(dirname "$dump_path")" && sha256sum -c "$(basename "$checksum_path")")
 gzip -t "$dump_path"
 
-: "${PLATFORM_RESTORE_POSTGRES_IMAGE:?Set a reviewed PostgreSQL 16 image digest}"
-if [[ ! "$PLATFORM_RESTORE_POSTGRES_IMAGE" =~ ^postgres@sha256:[a-f0-9]{64}$ ]]; then
+: "${PORTAL_RESTORE_POSTGRES_IMAGE:?Set a reviewed PostgreSQL 16 image digest}"
+if [[ ! "$PORTAL_RESTORE_POSTGRES_IMAGE" =~ ^postgres@sha256:[a-f0-9]{64}$ ]]; then
   echo 'Restore image must be pinned as postgres@sha256:<64 hex chars>.' >&2
   exit 2
 fi
 
-restore_container="platform-restore-$$"
+restore_container="portal-restore-$$"
 trap 'docker rm -f "$restore_container" >/dev/null 2>&1 || true' EXIT
 docker run -d --name "$restore_container" --network none \
   -e POSTGRES_HOST_AUTH_METHOD=trust \
   -e POSTGRES_USER=restore_admin -e POSTGRES_DB=restore_admin \
-  "$PLATFORM_RESTORE_POSTGRES_IMAGE" >/dev/null
+  "$PORTAL_RESTORE_POSTGRES_IMAGE" >/dev/null
 for attempt in {1..60}; do
   if docker exec -u postgres "$restore_container" pg_isready -h 127.0.0.1 -U restore_admin -d restore_admin -q; then break; fi
   if [[ "$attempt" -eq 60 ]]; then echo 'Disposable PostgreSQL did not start.' >&2; exit 1; fi
@@ -46,7 +46,7 @@ gzip -dc "$dump_path" | docker exec -i -u postgres "$restore_container" \
 database_count="$(docker exec -u postgres "$restore_container" psql -U restore_admin -At -d restore_admin -c \
   "select count(*) from pg_database where datistemplate = false and datname not in ('postgres', 'restore_admin')")"
 [[ "$database_count" =~ ^[0-9]+$ && "$database_count" -gt 0 ]] || {
-  echo 'Restored cluster contains no platform plugin database.' >&2
+  echo 'Restored cluster contains no portal plugin database.' >&2
   exit 1
 }
 if [[ $# -eq 3 ]]; then

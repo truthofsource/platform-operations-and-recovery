@@ -29,6 +29,10 @@ Capture backups and application inventory, verify the archive, restore into an i
 
 This case study draws on a workforce/operations platform I designed and implemented. Organization details and records are excluded. The public code makes selected patterns reproducible; the screenshots show a working local demonstration with fictional data. [Validation scope](docs/VALIDATION.md) separates that evidence from provider-side acceptance.
 
+### Actual implementation code
+
+This repository now includes selected implementation source and original tests from the operational platform, rather than only a portable reference. Read [what was implemented and accepted](docs/IMPLEMENTATION.md), [the source map](docs/SOURCE-MAP.md) and the dated validation boundaries. Identifying configuration is replaced with examples; original private history and records are excluded.
+
 ## Architecture
 
 ```mermaid
@@ -48,6 +52,7 @@ flowchart LR
 
 | Component | Role in plain words | Implementation |
 | --- | --- | --- |
+| Actual delivery-status correlation | Match provider, recipient and time without confusing acceptance with delivery | [Reader](reference/deliveryReports.ts) · [original tests](reference/deliveryReports.test.ts) |
 | Local recovery reference | Back up a fictional database and restore it into a different exclusive target. | [View code](lab/domain.py) |
 | PostgreSQL backup/restore scripts | Preserve the operational checksum, inventory and network-isolated rehearsal pattern. | [View code](scripts) |
 | Private backup storage | Use keyless access, versioning and deletion protection. | [View code](infra/storage.tf) |
@@ -58,7 +63,16 @@ flowchart LR
 
 ## Proof It Works
 
-**Recorded checks:** 8 unit tests passed · 5 demonstration checks passed · 1 Terraform mock test passed.
+### Extracted platform code
+
+```bash
+npm run test:source
+```
+
+The selected original tests run offline. [Validation](docs/VALIDATION.md) records current counts and distinguishes them from historical hosted evidence.
+
+
+**Current local checks:** 12 extracted-source tests + 10 portable tests passed · 5 demonstration checks · 1 Terraform mock tests.
 
 These are dated results for this reference implementation, not live Azure/AWS deployment claims. [Test record](docs/validation-results.json) · [Evidence and limitations](docs/VALIDATION.md)
 
@@ -178,6 +192,9 @@ See [strengths, weaknesses and tradeoffs](docs/SCALING.md) for the detailed deci
 | [References](docs/REFERENCES.md) | See technical sources and presentation inspiration |
 
 ## Repository Map
+
+`reference/` contains extracted implementation logic and original selected tests.
+
 
 ```text
 infra/               Terraform source, example inputs and mock plan tests
