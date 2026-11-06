@@ -25,3 +25,14 @@ Start with [the domain module](../lab/domain.py), then [its tests](../tests/test
 ## Discuss the result
 
 Describe the business problem first, the trust boundary second and the observed result third. Claim only the evidence in the validation record. A portable reference test is useful evidence of code behavior; it is not live-provider acceptance.
+
+## Commands for this walkthrough
+
+Start from the repository root. Run the working backup and recovery reference and its tests:
+
+```bash
+python -B -m unittest discover -s tests -v
+python -B -m lab demo
+```
+
+Then follow the commands beside each [proof section](../README.md#proof-it-works). The [full command reference](COMMANDS.md) explains prerequisites, expected outcomes and which additional procedures have not been run.

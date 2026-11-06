@@ -66,13 +66,37 @@ These are dated results for this reference implementation, not live Azure/AWS de
 
 The local SQLite rehearsal checks database integrity and compares table/row counts against the source snapshot.
 
+Run from the repository root:
+
+```bash
+python -B -m unittest discover -s tests -p test_domain.py -v
+```
+
+**What to look for:** The local restore passes integrity and row-count checks using an isolated target.
+
 ### 2. Unsafe restore attempts are blocked
 
 A corrupt archive is rejected before creating a target. Existing-target and self-restore attempts cannot overwrite the live database or backup.
 
+Run from the repository root:
+
+```bash
+python -B -m unittest discover -s tests -p test_domain.py -k no_ -v
+```
+
+**What to look for:** The selected cases reject overwrite/self-restore attempts without modifying the live database.
+
 ### 3. Infrastructure defaults are verified
 
 Mock plans keep the recovery VM and writer grant absent by default, and verify versioning, workspace retention and dedicated storage-log table mode. PostgreSQL scripts received syntax checks; these screenshots do not claim a live PostgreSQL/cloud restore.
+
+Run from the repository root:
+
+```bash
+terraform -chdir=infra test -filter=tests/recovery.tftest.hcl
+```
+
+**What to look for:** The mock plan verifies no recovery VM/writer grant by default, storage protection and dedicated log-table routing.
 
 ### 4. Visible results
 
@@ -91,6 +115,8 @@ Expected access denials are successful negative tests. Cloud permissions, networ
 State, saved Terraform plans, private inputs and credentials are excluded through [`.gitignore`](.gitignore). The existing validation workflow is manual-only and has no cloud deployment permission.
 
 ## Run It Locally
+
+The [command reference](docs/COMMANDS.md) includes prerequisites, Windows equivalents, focused checks and evidence notes.
 
 Requires Python 3.12 or newer. The default demonstration uses the Python standard library. Run inside a virtual environment:
 
@@ -141,6 +167,7 @@ See [strengths, weaknesses and tradeoffs](docs/SCALING.md) for the detailed deci
 
 | Guide | What you will find |
 | --- | --- |
+| [Command reference](docs/COMMANDS.md) | Copy the commands, understand their purpose and check expected results |
 | [Implementation walkthrough](docs/WALKTHROUGH.md) | Follow the processing path and code |
 | [Architecture](docs/ARCHITECTURE.md) | Understand service and identity boundaries |
 | [Terraform](infra/README.md) | Read the resource map, input examples and integration steps |
