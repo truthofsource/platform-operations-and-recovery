@@ -185,6 +185,10 @@ See [strengths, weaknesses and tradeoffs](docs/SCALING.md) for the detailed deci
 - Storage retention and managed-identity access
 - Operational evidence and cloud cost control
 
+## Troubleshooting Lessons
+
+An investigation query initially missed real recovery outcomes, and provider acceptance did not establish inbox receipt. Both cases required checking the evidence path before repeating a business operation. [Read the incident, evidence and verification](docs/LESSONS-LEARNED.md).
+
 ## Project Guides
 
 | Guide | What you will find |
