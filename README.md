@@ -29,11 +29,24 @@ This case study draws on a workforce/operations platform I designed and implemen
 
 This repository now includes selected implementation source and original tests from the operational platform, rather than only a portable reference. Read [what was implemented and accepted](docs/IMPLEMENTATION.md), [the source map](docs/SOURCE-MAP.md) and the dated validation boundaries. Identifying configuration is replaced with examples; original private history and records are excluded.
 
+## Tools Used and What They Do
+
+| Tool or service | What it does | Where it fits |
+| --- | --- | --- |
+| Application Insights and Log Analytics | Collect application/runtime and operational log evidence. | Actual platform destinations; configuration alone does not establish ingestion. |
+| KQL | Query logs by the relevant time, workload and safe correlation fields. | Query language, not a separate collector or proof of a complete incident history. |
+| Azure CLI and PowerShell | Inspect achieved service state and support scoped operations. | Operating utilities; local command success is not every remote step completing. |
+| PostgreSQL tools, Docker and AzCopy | Support engineering-portal database backup and transfer. | Actual helper prerequisites; separate from the SQLite teaching exercise. |
+| Python and SQLite | Run the isolated recovery model and reference viewer. | Public local tools, not the production database engine. |
+| Terraform and GitHub Actions | Describe infrastructure and coordinate reviewed checks. | Public checks are manual-only and do not start cloud services. |
+
+Provider acceptance, transport delivery and inbox receipt remain different observations. The reference does not add a new Sentinel connector or logging pipeline.
+
 ## Step by Step
 
 A short walkthrough of the process, with technical instructions and evidence limits in the sections below.
 
-1. **Collect operating evidence** — Save useful service logs, delivery information and backup records. Keep provider acceptance separate from confirmed message delivery.
+1. **Collect operating evidence (Log Analytics and KQL)** — Save useful service logs, delivery information and backup records. Keep provider acceptance separate from confirmed message delivery.
 
 2. **Prepare a recovery copy** — Identify the records and configuration required for the selected system. Use backups with content checks and a separately owned destination.
 
