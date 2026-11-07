@@ -2,7 +2,7 @@
 
 **Test recovery, make logs useful and keep temporary cloud resources under control.**
 
-[The problem](#the-business-problem) · [The solution](#the-solution) · [What was built](#what-was-built) · [Proof it works](#proof-it-works) · [Run it](#run-it-locally)
+[The problem](#the-business-problem) · [The solution](#the-solution) · [What was built](#what-was-built) · [Proof it works](#proof-it-works) · [Run it](#run-it-locally) · [Step by step](#step-by-step)
 
 ![Overview of the working demonstration](docs/images/01-overview.png)
 
@@ -19,7 +19,7 @@ Save backups and a record of what they contain, restore them into a separate tes
 ### Platform implementation
 
 - Operated a Linux-hosted engineering portal with access based on verified sign-in, private runtime material, backups and a tested temporary recovery-host procedure.
-- Implemented checksum-verified PostgreSQL backups and disposable network-restore into a separate test environment checks, with database/table/row-count inventory comparison.
+- Implemented checksum-verified PostgreSQL backups and restore checks in a separate disposable test environment, with database/table/row-count inventory comparison.
 - Documented application and infrastructure logs, service diagnostics, Log Analytics queries and the difference between provider acceptance and actual delivery.
 - Preserved paused nonproduction states after bounded tests and tracked residual costs, resource ownership and backup/retention requirements.
 
@@ -28,6 +28,18 @@ This case study draws on a workforce/operations platform I designed and implemen
 ### Actual implementation code
 
 This repository now includes selected implementation source and original tests from the operational platform, rather than only a portable reference. Read [what was implemented and accepted](docs/IMPLEMENTATION.md), [the source map](docs/SOURCE-MAP.md) and the dated validation boundaries. Identifying configuration is replaced with examples; original private history and records are excluded.
+
+## Step by Step
+
+A short walkthrough of the process, with technical instructions and evidence limits in the sections below.
+
+1. **Collect operating evidence** — Save useful service logs, delivery information and backup records. Keep provider acceptance separate from confirmed message delivery.
+
+2. **Prepare a recovery copy** — Identify the records and configuration required for the selected system. Use backups with content checks and a separately owned destination.
+
+3. **Compare the recovered result** — Check the restored contents and the access needed to use them. The case study keeps local demonstrations separate from completed live operating evidence.
+
+4. **Close the temporary session** — Record the result and restore the intended service settings. Remove or pause temporary resources and note costs that continue after compute stops.
 
 ## Architecture
 
