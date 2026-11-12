@@ -8,7 +8,11 @@
 
 ## The Business Problem
 
-The platform needed reliable operating records and a way to recover without experimenting on the live database. It also needed to control running costs and protect private configuration and credentials. A saved backup or a configured log destination was not enough on its own.
+When a service fails, the operator needs to establish what stopped, which records or imports were affected and whether the last operation actually completed. Information spread across job histories, application logs and cloud settings makes that investigation slower and can encourage repeating an action whose outcome is still uncertain.
+
+Recovery adds practical dependencies: a backup must be readable, the restored service needs its configuration and permissions, and testing must leave the live system intact. Temporary recovery hosts and diagnostic services can continue charging after the investigation ends. A successful backup job alone answers only part of the recovery question.
+
+The business need was a repeatable operating process for diagnosis, isolated recovery checks and verified cleanup, so the next operator has usable evidence and clear actions during an incident.
 
 ## The Solution
 
